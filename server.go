@@ -41,3 +41,14 @@ func HandleTokenRequest(c *gin.Context) {
 	}
 	c.Abort()
 }
+
+// ValidationBearerToken validation the bearer tokens
+func ValidationBearerToken(c *gin.Context) (oauth2.TokenInfo, error) {
+	tokenInfo, err := gServer.ValidationBearerToken(c.Request)
+	if err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+		return nil, err
+	}
+
+	return tokenInfo, nil
+}
